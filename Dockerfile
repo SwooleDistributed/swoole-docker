@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y \
 	composer \
 	make \
 	git \
+	supervisor \
 	--no-install-recommends \
 	&& cd /home && mkdir temp && cd temp \
 	&& wget https://github.com/swoole/swoole-src/archive/v1.9.6.tar.gz \
