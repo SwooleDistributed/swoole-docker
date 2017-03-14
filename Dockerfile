@@ -1,5 +1,6 @@
 # sd-swoole
 FROM ubuntu
+MAINTAINER Jincheng Zhang 896369042@qq.com
 # 构建swoole环境，在这里安装了php,swoole,composer,redis
 RUN apt-get update && apt-get install -y \
 	redis-server \
