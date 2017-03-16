@@ -34,8 +34,4 @@ RUN apt-get update && apt-get install -y \
 	&& echo extension=inotify.so>inotify.ini \
 	&& echo extension=swoole.so>swoole.ini \
 	&& composer config -g repo.packagist composer https://packagist.phpcomposer.com \
-	&& mkdir -p /var/log/supervisor \
-	&& apt-get autoclean \
-    && apt-get autoremove \
-    && rm -rf /var/lib/apt/lists/*
-
+	&& mkdir -p /var/log/supervisor
