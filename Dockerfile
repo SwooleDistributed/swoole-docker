@@ -20,13 +20,13 @@ RUN apt-get update && apt-get install -y \
 	vim \
 	--no-install-recommends \
 	&& cd /home && mkdir temp && cd temp \
-	&& wget https://github.com/swoole/swoole-src/archive/v1.9.6.tar.gz \
-	https://github.com/redis/hiredis/archive/v0.13.3.tar.gz --no-check-certificate \
+	&& wget https://github.com/swoole/swoole-src/archive/v1.9.8.tar.gz \
+	https://github.com/redis/hiredis/archive/v0.13.3.tar.gz --enable-openssl --no-check-certificate \
 	&& tar -xzvf v0.13.3.tar.gz \
-	&& tar -xzvf v1.9.6.tar.gz \
+	&& tar -xzvf v1.9.8.tar.gz \
 	&& cd hiredis-0.13.3 \
 	&& make -j && make install && ldconfig \
-	&& cd ../swoole-src-1.9.6 \
+	&& cd ../swoole-src-1.9.8 \
 	&& phpize && ./configure --enable-async-redis && make -j \
 	&& make install \
 	&& cd /home && rm -rf temp \
