@@ -1,5 +1,5 @@
 # sd-swoole
-FROM registry-internal.cn-hangzhou.aliyuncs.com/youwoxing/php
+FROM registry.cn-hangzhou.aliyuncs.com/youwoxing/php
 MAINTAINER Jincheng Zhang 896369042@qq.com
 # 构建swoole环境，在这里安装了php,swoole,composer
 RUN apt-get update && apt-get install -y \
