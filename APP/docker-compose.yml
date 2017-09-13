@@ -32,7 +32,8 @@ services:
         - consul
         - mysql
         - redis
-
+      ports:
+       - "18081:8081"
 
   sd2:
       container_name: sd2
@@ -43,6 +44,8 @@ services:
         - consul
         - mysql
         - redis
+      ports:
+       - "28081:8081"
 
   sd3:
       container_name: sd3
@@ -53,3 +56,5 @@ services:
         - consul
         - mysql
         - redis
+     ports:
+        - "38081:8081"
