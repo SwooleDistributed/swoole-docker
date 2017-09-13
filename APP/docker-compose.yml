@@ -29,24 +29,29 @@ services:
       environment:
         SD_NODE_NAME: "SD-1"
       links:
+        - consul
         - mysql
         - redis
-        - consul
+
+
   sd2:
       container_name: sd2
       image: registry.cn-hangzhou.aliyuncs.com/youwoxing/sd
       environment:
         SD_NODE_NAME: "SD-2"
       links:
+        - consul
         - mysql
         - redis
         - consul
+
   sd3:
       container_name: sd3
       image: registry.cn-hangzhou.aliyuncs.com/youwoxing/sd
       environment:
         SD_NODE_NAME: "SD-3"
       links:
+        - consul
         - mysql
         - redis
         - consul
