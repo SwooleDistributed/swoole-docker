@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
 	vim \
 	libssl-dev \
 	wget \
+	git \
 	make \
 	supervisor \
 	--no-install-recommends \
