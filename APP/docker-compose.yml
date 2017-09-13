@@ -10,10 +10,12 @@ services:
       MYSQL_USER: "sd"
       MYSQL_PASSWORD: "sd"
       MYSQL_DATABASE: "sd"
+    command: -d
 
   redis:
       container_name: redis
       image: redis:3.2.10
+      command: -d
 
   consul:
       image: consul
