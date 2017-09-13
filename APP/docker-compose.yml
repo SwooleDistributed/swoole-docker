@@ -1,22 +1,8 @@
 version: "2"
 services:
-  # Nginx 1.11.10: https://hub.docker.com/_/nginx/
-  web:
-    image: nginx:1.11.10
-    ports:
-      # 将主机的 8080 端口映射到容器的 80 端口
-      - 8080:80
-    depends_on:
-      - sd
-    # 同 php 一起共享 ./apps 目录
-    volumes_from:
-      - sd
-    # 创建一个数据卷，由 ./images/nginx/config => /etc/nginx/conf.d
-    volumes:
-      - ./images/nginx/config:/etc/nginx/conf.d:ro
-
   # MySQL 5.7: https://hub.docker.com/_/mysql/
-  database:
+  mysql:
+    container_name: mysql
     image: mysql:5.7
     # 配置一些环境变量，具体的环境变量细节可以访问上面的网址查看
     environment:
@@ -24,21 +10,41 @@ services:
       MYSQL_USER: "sd"
       MYSQL_PASSWORD: "sd"
       MYSQL_DATABASE: "sd"
-    volumes:
-      - ./database:/var/lib/mysql
 
   redis:
-    build:
-        context: ./redis
-        dockerfile: Dockerfile
+      container_name: redis
+      image: redis:3.2.10
 
-  sd:
+  consul:
+      image: consul
+      container_name: consul
+      command: -server -bootstrap-expect 1
+
+  sd1:
       #阿里云内网registry-internal.cn-hangzhou.aliyuncs.com/youwoxing/sd
-      build:
-            context: ./sd
-            dockerfile: Dockerfile
-      volumes:
-        - ./apps:/mnt/apps
+      container_name: sd1
+      image: registry.cn-hangzhou.aliyuncs.com/youwoxing/swoole
       links:
         - mysql
         - redis
+        - consul
+        - sd2
+        - sd3
+  sd2:
+      container_name: sd2
+      image: registry.cn-hangzhou.aliyuncs.com/youwoxing/swoole
+      links:
+        - mysql
+        - redis
+        - consul
+        - sd1
+        - sd3
+  sd3:
+      container_name: sd3
+      image: registry.cn-hangzhou.aliyuncs.com/youwoxing/swoole
+      links:
+        - mysql
+        - redis
+        - consul
+        - sd1
+        - sd2
