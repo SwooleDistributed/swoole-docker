@@ -2,20 +2,18 @@ version: "2"
 services:
   # MySQL 5.7: https://hub.docker.com/_/mysql/
   mysql:
-    container_name: mysql
-    image: mysql:5.7
-    # 配置一些环境变量，具体的环境变量细节可以访问上面的网址查看
-    environment:
-      MYSQL_ROOT_PASSWORD: "root"
-      MYSQL_USER: "sd"
-      MYSQL_PASSWORD: "sd"
-      MYSQL_DATABASE: "sd"
-    command: -d
+      container_name: mysql
+      image: mysql:5.7
+      # 配置一些环境变量，具体的环境变量细节可以访问上面的网址查看
+      environment:
+        MYSQL_ROOT_PASSWORD: "root"
+        MYSQL_USER: "sd"
+        MYSQL_PASSWORD: "sd"
+        MYSQL_DATABASE: "sd"
 
   redis:
       container_name: redis
       image: redis:3.2.10
-      command: -d
 
   consul:
       image: consul
