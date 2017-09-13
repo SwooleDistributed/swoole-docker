@@ -28,10 +28,10 @@ RUN apt-get update && apt-get install -y \
 	&& phpize \
 	&& ./configure --enable-redis-igbinary \
 	&& make &&  make install \
-	&& cd /temp \
+	&& cd /home/temp \
 	&& php -r"copy('https://getcomposer.org/installer','composer-setup.php');" \
 	&& php composer-setup.php --install-dir=/usr/bin --filename=composer \
-	&& rm -rf temp \
+	&& rm -rf /home/temp \
 	&& cd /usr/local/etc/php/conf.d/ \
 	&& echo extension=igbinary.so>igbinary.ini \
 	&& echo extension=redis.so>redis.ini \
