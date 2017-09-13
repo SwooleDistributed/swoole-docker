@@ -23,6 +23,7 @@ RUN apt-get update && apt-get install -y \
 	&& make install \
 	&& pecl install inotify \
 	&& pecl install ds \
+	&& pecl install igbinary \
 	&& cd /home/temp/phpredis-3.1.3 \
 	&& phpize \
 	&& ./configure --enable-redis-igbinary \
