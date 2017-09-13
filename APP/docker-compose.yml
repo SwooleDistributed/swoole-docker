@@ -18,9 +18,7 @@ services:
   consul:
       image: consul
       container_name: consul
-      command: -d agent -ui -server -bootstrap-expect 1
-      ports:
-        - 18500:8500
+      command: agent -ui -server -bootstrap-expect 1
 
   sd1:
       #阿里云内网registry-internal.cn-hangzhou.aliyuncs.com/youwoxing/sd
