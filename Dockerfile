@@ -11,8 +11,6 @@ RUN apt-get update && apt-get install -y \
 	supervisor \
 	--no-install-recommends \
 	&& docker-php-ext-install zip opcache bcmath pdo_mysql \
-	&& COPY ./config/php.ini /usr/local/etc/php/conf.d/ \
-    && COPY ./config/opcache-recommended.ini /usr/local/etc/php/conf.d/ \
 	&& cd /home && rm -rf temp && mkdir temp && cd temp \
 	&& wget https://github.com/swoole/swoole-src/archive/v1.9.19.tar.gz \
 	https://github.com/redis/hiredis/archive/v0.13.3.tar.gz \
@@ -47,5 +45,7 @@ RUN apt-get update && apt-get install -y \
 	&& apt-get autoclean \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
+
+COPY ./config/* /usr/local/etc/php/conf.d/
 
 CMD ["bin/bash"]
