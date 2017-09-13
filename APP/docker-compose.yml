@@ -18,33 +18,35 @@ services:
   consul:
       image: consul
       container_name: consul
-      command: -server -bootstrap-expect 1
+      command: -d agent -ui -server -bootstrap-expect 1
+      ports:
+        - 18500:8500
 
   sd1:
       #阿里云内网registry-internal.cn-hangzhou.aliyuncs.com/youwoxing/sd
       container_name: sd1
       image: registry.cn-hangzhou.aliyuncs.com/youwoxing/swoole
+      environment:
+        SD_NODE_NAME: "SD-1"
       links:
         - mysql
         - redis
         - consul
-        - sd2
-        - sd3
   sd2:
       container_name: sd2
       image: registry.cn-hangzhou.aliyuncs.com/youwoxing/swoole
+      environment:
+        SD_NODE_NAME: "SD-2"
       links:
         - mysql
         - redis
         - consul
-        - sd1
-        - sd3
   sd3:
       container_name: sd3
       image: registry.cn-hangzhou.aliyuncs.com/youwoxing/swoole
+      environment:
+        SD_NODE_NAME: "SD-3"
       links:
         - mysql
         - redis
         - consul
-        - sd1
-        - sd2
