@@ -1,14 +1,18 @@
 # sd-swoole
-FROM registry.cn-hangzhou.aliyuncs.com/youwoxing/php
+FROM php:7.1-cli
 MAINTAINER Jincheng Zhang 896369042@qq.com
 # 构建swoole环境，在这里安装了php,swoole,composer
 RUN apt-get update && apt-get install -y \
 	zlib1g-dev \
+	vim \
 	libssl-dev \
 	wget \
 	make \
 	supervisor \
 	--no-install-recommends \
+	&& docker-php-ext-install zip opcache bcmath pdo_mysql
+	&& COPY ./config/php.ini /usr/local/etc/php/conf.d/
+    && COPY ./config/opcache-recommended.ini /usr/local/etc/php/conf.d/
 	&& cd /home && rm -rf temp && mkdir temp && cd temp \
 	&& wget https://github.com/swoole/swoole-src/archive/v1.9.19.tar.gz \
 	https://github.com/redis/hiredis/archive/v0.13.3.tar.gz \
@@ -44,3 +48,4 @@ RUN apt-get update && apt-get install -y \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
 
+CMD ["bin/bash"]
