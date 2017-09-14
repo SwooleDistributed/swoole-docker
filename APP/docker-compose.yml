@@ -34,7 +34,7 @@ services:
     image: registry.cn-hangzhou.aliyuncs.com/youwoxing/sd
     environment:
       SD_NODE_NAME: "SD-1"
-      SD_CONFIG_NAME: "docker"
+      SD_CONFIG_DIR: "docker"
     volumes_from:
       - dvc
     links:
@@ -49,7 +49,7 @@ services:
     image: registry.cn-hangzhou.aliyuncs.com/youwoxing/sd
     environment:
       SD_NODE_NAME: "SD-2"
-      SD_CONFIG_NAME: "docker"
+      SD_CONFIG_DIR: "docker"
     volumes_from:
       - dvc
     links:
