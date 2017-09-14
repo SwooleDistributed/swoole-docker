@@ -25,7 +25,9 @@ services:
     consul:
         image: consul
         container_name: consul
-        command: agent -ui -server -bootstrap-expect 1
+        command: agent -ui -client 0.0.0.0 -server -bootstrap-expect 1
+        ports:
+            - "18500:8500"
 
     # SD框架阿里云内网registry-internal.cn-hangzhou.aliyuncs.com/youwoxing/sd
     sd1:
@@ -42,7 +44,6 @@ services:
             - redis
         ports:
             - "11001:8081"
-            - "11500:8500"
 
     sd2:
         container_name: sd2
@@ -58,7 +59,6 @@ services:
             - redis
         ports:
             - "12001:8081"
-            - "12500:8500"
 
     sd3:
         container_name: sd3
@@ -74,4 +74,3 @@ services:
             - redis
         ports:
             - "13001:8081"
-            - "13500:8500"
