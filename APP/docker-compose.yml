@@ -1,5 +1,11 @@
 version: "2"
 services:
+  # 数据卷容器
+  dvc:
+    image: debian:jessie
+    volumes:
+      - /apps/SD-demo/src:/apps/src
+
   # MySQL 5.7: https://hub.docker.com/_/mysql/
   mysql:
     container_name: mysql
@@ -25,12 +31,17 @@ services:
   # SD框架阿里云内网registry-internal.cn-hangzhou.aliyuncs.com/youwoxing/sd
   sd1:
     container_name: sd1
-    image: registry.cn-hangzhou.aliyuncs.com/youwoxing/sd
+    image: SD
+    build:
+      context: ./SD
+      dockerfile: Dockerfile
+      args:
+        app_name: "SD-demo"
     environment:
       SD_NODE_NAME: "SD-1"
-      SD_CONFIG_DIR: "docker"
-    volumes:
-          - /apps/SD-demo/src:/apps/src
+      SD_CONFIG_NAME: "docker"
+    volumes_from:
+      - dvc
     links:
       - consul
       - mysql
@@ -40,12 +51,12 @@ services:
 
   sd2:
     container_name: sd2
-    image: registry.cn-hangzhou.aliyuncs.com/youwoxing/sd
+    image: SD
     environment:
       SD_NODE_NAME: "SD-2"
-      SD_CONFIG_DIR: "docker"
-    volumes:
-          - /apps/SD-demo/src:/apps/src
+      SD_CONFIG_NAME: "docker"
+    volumes_from:
+      - dvc
     links:
       - consul
       - mysql
