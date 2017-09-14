@@ -2,7 +2,7 @@ version: "2"
 services:
   # 数据卷容器
   dvc:
-    image: debian:wheezy
+    image: debian:jessie
     volumes:
       - /apps:/apps
 
