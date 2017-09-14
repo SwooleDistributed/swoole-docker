@@ -1,48 +1,60 @@
 version: "2"
 services:
+  # 数据卷容器
+  dvc:
+    image: debian:wheezy
+    volumes:
+      - /apps:/apps
+
   # MySQL 5.7: https://hub.docker.com/_/mysql/
   mysql:
-      container_name: mysql
-      image: mysql:5.7
-      # 配置一些环境变量，具体的环境变量细节可以访问上面的网址查看
-      environment:
-        MYSQL_ROOT_PASSWORD: "root"
-        MYSQL_USER: "sd"
-        MYSQL_PASSWORD: "sd"
-        MYSQL_DATABASE: "sd"
+    container_name: mysql
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_USER: "sd"
+      MYSQL_PASSWORD: "sd"
+      MYSQL_DATABASE: "sd"
 
+  # Redis 3.2.10: https://hub.docker.com/_/redis/
   redis:
-      container_name: redis
-      image: redis:3.2.10
+    container_name: redis
+    image: redis:3.2.10
 
   consul:
-      image: consul
-      container_name: consul
-      command: agent -ui -server -bootstrap-expect 1
-      ports:
-       - "18500:8500"
+    image: consul
+    container_name: consul
+    command: agent -ui -server -bootstrap-expect 1
+    ports:
+      - "18500:8500"
 
+  # SD框架阿里云内网registry-internal.cn-hangzhou.aliyuncs.com/youwoxing/sd
   sd1:
-      #阿里云内网registry-internal.cn-hangzhou.aliyuncs.com/youwoxing/sd
-      container_name: sd1
-      image: registry.cn-hangzhou.aliyuncs.com/youwoxing/sd
-      environment:
-        SD_NODE_NAME: "SD-1"
-      links:
-        - consul
-        - mysql
-        - redis
-      ports:
-       - "18081:8081"
+    container_name: sd1
+    image: registry.cn-hangzhou.aliyuncs.com/youwoxing/sd
+    environment:
+      SD_NODE_NAME: "SD-1"
+      SD_CONFIG_NAME: "docker"
+    volumes_from:
+      - dvc
+    links:
+      - consul
+      - mysql
+      - redis
+    ports:
+      - "18081:8081"
 
   sd2:
-      container_name: sd2
-      image: registry.cn-hangzhou.aliyuncs.com/youwoxing/sd
-      environment:
-        SD_NODE_NAME: "SD-2"
-      links:
-        - consul
-        - mysql
-        - redis
-      ports:
-       - "28081:8081"
+    container_name: sd2
+    image: registry.cn-hangzhou.aliyuncs.com/youwoxing/sd
+    environment:
+      SD_NODE_NAME: "SD-2"
+      SD_CONFIG_NAME: "docker"
+    volumes_from:
+      - dvc
+    links:
+      - consul
+      - mysql
+      - redis
+    ports:
+      - "28081:8081"
