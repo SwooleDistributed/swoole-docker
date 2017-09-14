@@ -2,6 +2,7 @@ version: "2"
 services:
   # 数据卷容器
   dvc:
+    container_name: dvc
     image: debian:jessie
     volumes:
       - /apps/SD-demo/src:/apps/src
