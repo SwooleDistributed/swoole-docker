@@ -32,7 +32,11 @@ services:
   sd1:
     container_name: sd1
     image: SD
-    build: ./SD
+    build:
+      context: ./SD
+      dockerfile: Dockerfile
+      args:
+        app_name: "SD-demo"
     environment:
       SD_NODE_NAME: "SD-1"
       SD_CONFIG_NAME: "docker"
