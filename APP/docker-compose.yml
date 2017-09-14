@@ -31,7 +31,8 @@ services:
   # SD框架阿里云内网registry-internal.cn-hangzhou.aliyuncs.com/youwoxing/sd
   sd1:
     container_name: sd1
-    image: registry.cn-hangzhou.aliyuncs.com/youwoxing/sd
+    image: SD
+    build: ./SD
     environment:
       SD_NODE_NAME: "SD-1"
       SD_CONFIG_NAME: "docker"
@@ -46,7 +47,7 @@ services:
 
   sd2:
     container_name: sd2
-    image: registry.cn-hangzhou.aliyuncs.com/youwoxing/sd
+    image: SD
     environment:
       SD_NODE_NAME: "SD-2"
       SD_CONFIG_NAME: "docker"
