@@ -1,11 +1,5 @@
 version: "2"
 services:
-  # 数据卷容器
-  dvc:
-    image: debian:jessie
-    volumes:
-      - /apps/SD-demo/src:/apps/src
-
   # MySQL 5.7: https://hub.docker.com/_/mysql/
   mysql:
     container_name: mysql
@@ -35,8 +29,8 @@ services:
     environment:
       SD_NODE_NAME: "SD-1"
       SD_CONFIG_DIR: "docker"
-    volumes_from:
-      - dvc
+    volumes:
+          - /apps/SD-demo/src:/apps/src
     links:
       - consul
       - mysql
@@ -50,8 +44,8 @@ services:
     environment:
       SD_NODE_NAME: "SD-2"
       SD_CONFIG_DIR: "docker"
-    volumes_from:
-      - dvc
+    volumes:
+          - /apps/SD-demo/src:/apps/src
     links:
       - consul
       - mysql
