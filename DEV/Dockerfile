@@ -49,7 +49,7 @@ RUN apt-get update && apt-get install -y \
 	&& mkdir -p /var/log/supervisor \
 	&& apt-get autoclean \
     && apt-get autoremove \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
 #添加ssh用户
 	&& useradd admin \
 	&& echo 'root:123' | chpasswd \
