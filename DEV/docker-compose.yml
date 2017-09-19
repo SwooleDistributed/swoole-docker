@@ -6,22 +6,46 @@ services:
         image: mysql:5.7
         environment:
             MYSQL_ROOT_PASSWORD: "root"
-            MYSQL_USER: "sd"
-            MYSQL_PASSWORD: "sd"
-            MYSQL_DATABASE: "sd"
+            MYSQL_USER: "youwoxing"
+            MYSQL_PASSWORD: "youwoxing"
+            MYSQL_DATABASE: "dianliao"
+        volumes:
+            - /home/docker/mysql:/var/lib/mysql
+        ports:
+            - "13306:3306"
 
     # Redis 3.2.10: https://hub.docker.com/_/redis/
     redis:
         container_name: redis
         image: redis:3.2.10
+        volums:
+            - /home/docker/redis:/data
+        ports:
+            - "16379:6379"
 
     # SD框架阿里云内网registry-internal.cn-hangzhou.aliyuncs.com/youwoxing/dev
     dev1:
-        container_name: dev1
+        container_name: ojl
         image: registry.cn-hangzhou.aliyuncs.com/youwoxing/dev
         links:
             - mysql
             - redis
+        volumes:
+            - /home/docker_user/ojl:/home
         ports:
-            - "10001:8081"
-            - "10022:22"
+            - "10183:8083"
+            - "10193:9093"
+            - "10122:22"
+
+    dev2:
+        container_name: zch
+        image: registry.cn-hangzhou.aliyuncs.com/youwoxing/dev
+        links:
+            - mysql
+            - redis
+        volumes:
+            - /home/docker_user/zch:/home
+        ports:
+            - "10283:8083"
+            - "10293:9093"
+            - "10222:22"
