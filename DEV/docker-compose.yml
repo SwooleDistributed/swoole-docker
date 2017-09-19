@@ -18,7 +18,7 @@ services:
     redis:
         container_name: redis
         image: redis:3.2.10
-        volums:
+        volumes:
             - /home/docker/redis:/data
         ports:
             - "16379:6379"
