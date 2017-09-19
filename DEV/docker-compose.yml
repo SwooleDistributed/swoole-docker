@@ -6,7 +6,7 @@ services:
         image: mysql:5.7
         environment:
             MYSQL_ROOT_PASSWORD: "root"
-            MYSQL_USER: "root"
+            MYSQL_USER: "youwo"
             MYSQL_PASSWORD: "123456"
             MYSQL_DATABASE: "youwo_dliao"
         volumes:
