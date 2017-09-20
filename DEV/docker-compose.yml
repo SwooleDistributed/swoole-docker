@@ -24,7 +24,7 @@ services:
             - "16379:6379"
 
     # SD框架阿里云内网registry-internal.cn-hangzhou.aliyuncs.com/youwoxing/dev
-    dev1:
+    ojl:
         container_name: ojl
         image: registry.cn-hangzhou.aliyuncs.com/youwoxing/dev
         links:
@@ -37,7 +37,7 @@ services:
             - "10193:9093"
             - "10122:22"
 
-    dev2:
+    zch:
         container_name: zch
         image: registry.cn-hangzhou.aliyuncs.com/youwoxing/dev
         links:
@@ -50,53 +50,53 @@ services:
             - "10293:9093"
             - "10222:22"
 
-    dev3:
-            container_name: dev3
+    ln:
+            container_name: ln
             image: registry.cn-hangzhou.aliyuncs.com/youwoxing/dev
             links:
                 - mysql
                 - redis
             volumes:
-                - /home/docker_user/dev3:/home
+                - /home/docker_user/ln:/home
             ports:
                 - "10383:8083"
                 - "10393:9093"
                 - "10322:22"
 
-    dev4:
-            container_name: dev4
+    dwx:
+            container_name: dwx
             image: registry.cn-hangzhou.aliyuncs.com/youwoxing/dev
             links:
                 - mysql
                 - redis
             volumes:
-                - /home/docker_user/dev4:/home
+                - /home/docker_user/dwx:/home
             ports:
                 - "10483:8083"
                 - "10493:9093"
                 - "10422:22"
 
-    dev5:
-            container_name: dev5
+    lc:
+            container_name: lc
             image: registry.cn-hangzhou.aliyuncs.com/youwoxing/dev
             links:
                 - mysql
                 - redis
             volumes:
-                - /home/docker_user/dev5:/home
+                - /home/docker_user/lc:/home
             ports:
                 - "10583:8083"
                 - "10593:9093"
                 - "10522:22"
 
-    dev6:
-            container_name: dev6
+    jxy:
+            container_name: jxy
             image: registry.cn-hangzhou.aliyuncs.com/youwoxing/dev
             links:
                 - mysql
                 - redis
             volumes:
-                - /home/docker_user/dev6:/home
+                - /home/docker_user/jxy:/home
             ports:
                 - "10683:8083"
                 - "10693:9093"
