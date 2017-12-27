@@ -6,9 +6,9 @@ services:
         image: mysql:5.7
         environment:
             MYSQL_ROOT_PASSWORD: "root"
-            MYSQL_USER: "youwo"
+            MYSQL_USER: "root"
             MYSQL_PASSWORD: "123456"
-            MYSQL_DATABASE: "youwo_dliao"
+            MYSQL_DATABASE: "one"
         volumes:
             - /home/docker/mysql:/var/lib/mysql
         ports:
@@ -24,80 +24,54 @@ services:
             - "16379:6379"
 
     # SD框架阿里云内网registry-internal.cn-hangzhou.aliyuncs.com/youwoxing/dev
-    ojl:
-        container_name: ojl
+    peter:
+        container_name: peter
         image: registry.cn-hangzhou.aliyuncs.com/youwoxing/dev
         links:
             - mysql
             - redis
         volumes:
-            - /home/docker_user/ojl:/home
+            - /home/docker_user/peter:/home
         ports:
             - "10183:8083"
             - "10193:9093"
             - "10122:22"
 
-    zch:
-        container_name: zch
+    ljj:
+        container_name: ljj
         image: registry.cn-hangzhou.aliyuncs.com/youwoxing/dev
         links:
             - mysql
             - redis
         volumes:
-            - /home/docker_user/zch:/home
+            - /home/docker_user/ljj:/home
         ports:
             - "10283:8083"
             - "10293:9093"
             - "10222:22"
 
-    ln:
-            container_name: ln
+    hy:
+            container_name: hy
             image: registry.cn-hangzhou.aliyuncs.com/youwoxing/dev
             links:
                 - mysql
                 - redis
             volumes:
-                - /home/docker_user/ln:/home
+                - /home/docker_user/hy:/home
             ports:
                 - "10383:8083"
                 - "10393:9093"
                 - "10322:22"
-
-    dwx:
-            container_name: dwx
+                
+    jm:
+            container_name: jm
             image: registry.cn-hangzhou.aliyuncs.com/youwoxing/dev
             links:
                 - mysql
                 - redis
             volumes:
-                - /home/docker_user/dwx:/home
+                - /home/docker_user/jm:/home
             ports:
                 - "10483:8083"
                 - "10493:9093"
                 - "10422:22"
-
-    lc:
-            container_name: lc
-            image: registry.cn-hangzhou.aliyuncs.com/youwoxing/dev
-            links:
-                - mysql
-                - redis
-            volumes:
-                - /home/docker_user/lc:/home
-            ports:
-                - "10583:8083"
-                - "10593:9093"
-                - "10522:22"
-
-    jxy:
-            container_name: jxy
-            image: registry.cn-hangzhou.aliyuncs.com/youwoxing/dev
-            links:
-                - mysql
-                - redis
-            volumes:
-                - /home/docker_user/jxy:/home
-            ports:
-                - "10683:8083"
-                - "10693:9093"
-                - "10622:22"
