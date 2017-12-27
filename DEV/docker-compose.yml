@@ -26,7 +26,7 @@ services:
     # SD框架阿里云内网registry-internal.cn-hangzhou.aliyuncs.com/youwoxing/dev
     peter:
         container_name: peter
-        image: registry.cn-hangzhou.aliyuncs.com/youwoxing/dev
+        image: registry.cn-hangzhou.aliyuncs.com/peterpang/dev
         links:
             - mysql
             - redis
@@ -39,7 +39,7 @@ services:
 
     ljj:
         container_name: ljj
-        image: registry.cn-hangzhou.aliyuncs.com/youwoxing/dev
+        image: registry.cn-hangzhou.aliyuncs.com/peterpang/dev
         links:
             - mysql
             - redis
@@ -52,7 +52,7 @@ services:
 
     hy:
             container_name: hy
-            image: registry.cn-hangzhou.aliyuncs.com/youwoxing/dev
+            image: registry.cn-hangzhou.aliyuncs.com/peterpang/dev
             links:
                 - mysql
                 - redis
@@ -65,7 +65,7 @@ services:
                 
     jm:
             container_name: jm
-            image: registry.cn-hangzhou.aliyuncs.com/youwoxing/dev
+            image: registry.cn-hangzhou.aliyuncs.com/peterpang/dev
             links:
                 - mysql
                 - redis
