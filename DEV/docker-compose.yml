@@ -62,3 +62,16 @@ services:
                 - "10383:8083"
                 - "10393:9093"
                 - "10322:22"
+                
+    jm:
+            container_name: jm
+            image: registry.cn-hangzhou.aliyuncs.com/youwoxing/dev
+            links:
+                - mysql
+                - redis
+            volumes:
+                - /home/docker_user/jm:/home
+            ports:
+                - "10483:8083"
+                - "10493:9093"
+                - "10422:22"
