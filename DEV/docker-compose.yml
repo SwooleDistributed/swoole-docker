@@ -33,6 +33,7 @@ services:
         volumes:
             - /home/docker_user/peter:/home
         ports:
+            - "10181:8081"
             - "10183:8083"
             - "10193:9093"
             - "10122:22"
@@ -46,6 +47,7 @@ services:
         volumes:
             - /home/docker_user/ljj:/home
         ports:
+            - "10281:8081"
             - "10283:8083"
             - "10293:9093"
             - "10222:22"
@@ -59,6 +61,7 @@ services:
             volumes:
                 - /home/docker_user/hy:/home
             ports:
+                - "10381:8081"
                 - "10383:8083"
                 - "10393:9093"
                 - "10322:22"
@@ -72,6 +75,7 @@ services:
             volumes:
                 - /home/docker_user/jm:/home
             ports:
+                - "10481:8081"
                 - "10483:8083"
                 - "10493:9093"
                 - "10422:22"
