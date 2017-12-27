@@ -1,5 +1,5 @@
 # sd-swoole
-FROM registry-internal.cn-hangzhou.aliyuncs.com/youwoxing/sd
+FROM registry.cn-hangzhou.aliyuncs.com/youwoxing/sd
 MAINTAINER peterpang 10846295@qq.com
 RUN mkdir /apps
 COPY composer.json /apps/composer.json
