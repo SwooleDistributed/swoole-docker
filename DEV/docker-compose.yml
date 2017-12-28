@@ -32,7 +32,7 @@ services:
             - redis
         volumes:
             - /home/docker_user/peter:/home
-        ports:
+        ports: 
             - "10181:8081"
             - "10183:8083"
             - "10193:9093"
