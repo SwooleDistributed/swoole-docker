@@ -3,33 +3,34 @@ MAINTAINER peterpang 10846295@qq.com
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN PACKAGES_TO_INSTALL="sudo git cron php7.0-dev composer php-xdebug php7.0-mbstring php7.0-curl php7.0-fpm nginx supervisor libyaml-dev php7.0-mysql php7.0-phalcon" && \
-    apt-get update && \
-    apt-get install -y software-properties-common && \
-    apt-add-repository -y ppa:phalcon/stable && \
-    apt-get update && \
-    apt-get install -y $PACKAGES_TO_INSTALL && \
-    apt-get autoremove -y && \
-    apt-get clean && \
-    apt-get autoclean   \
-    pecl install yaml-beta && \
-    echo 'extension=yaml.so' > /etc/php/7.0/mods-available/yaml.ini && \
-    ln -s /etc/php/7.0/mods-available/yaml.ini /etc/php/7.0/cli/conf.d/50-yaml.ini && \
-    ln -s /etc/php/7.0/mods-available/yaml.ini /etc/php/7.0/fpm/conf.d/50-yaml.ini  \
-    echo 'extension=phalcon.so' > /etc/php/7.0/mods-available/phalcon.ini && \
-    ln -s /etc/php/7.0/mods-available/phalcon.ini /etc/php/7.0/cli/conf.d/50-phalcon.ini && \
-    ln -s /etc/php/7.0/mods-available/phalcon.ini /etc/php/7.0/fpm/conf.d/50-phalcon.ini   \
+RUN PACKAGES_TO_INSTALL="sudo git cron php7.0-dev composer php-xdebug php-7.0-redis php7.0-mbstring php7.0-curl php7.0-fpm nginx supervisor libyaml-dev php7.0-mysql php7.0-phalcon" \
+    apt-get update && apt-get install -y software-properties-common && apt-add-repository -y ppa:phalcon/stable \
+    && $PACKAGES_TO_INSTALL \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && apt-get autoclean \
+    && pecl install yaml-beta \
+    && echo 'extension=yaml.so' > /etc/php/7.0/mods-available/yaml.ini \
+    && ln -s /etc/php/7.0/mods-available/yaml.ini /etc/php/7.0/cli/conf.d/50-yaml.ini \
+    && ln -s /etc/php/7.0/mods-available/yaml.ini /etc/php/7.0/fpm/conf.d/50-yaml.ini  \
+    && echo 'extension=phalcon.so' > /etc/php/7.0/mods-available/phalcon.ini  \
+    && ln -s /etc/php/7.0/mods-available/phalcon.ini /etc/php/7.0/cli/conf.d/50-phalcon.ini \
+    && ln -s /etc/php/7.0/mods-available/phalcon.ini /etc/php/7.0/fpm/conf.d/50-phalcon.ini \
     # configure NGINX as non-daemon
-    echo "daemon off;" >> /etc/nginx/nginx.conf \
+    && echo "daemon off;" >> /etc/nginx/nginx.conf && \
     # configure php-fpm as non-daemon
-    sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php/7.0/fpm/php-fpm.conf   \
+    && sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php/7.0/fpm/php-fpm.conf \
     # clear apt cache and remove unnecessary packages
-    apt-get autoclean && apt-get -y autoremove  \
+    && apt-get autoclean && apt-get -y autoremove  \
     # add a phpinfo script for INFO purposes
-    echo "<?php phpinfo();" >> /var/www/html/index.php  \
-    mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak \
-    mkdir /run/php 
-    
+    && echo "<?php phpinfo();" >> /var/www/html/index.php  \
+    && mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak \
+    && mkdir /run/php \
+    && cd /home/temp \
+	&& php -r"copy('https://getcomposer.org/installer','composer-setup.php');" \
+	&& php composer-setup.php --install-dir=/usr/bin --filename=composer \
+	&& rm -rf /home/temp
+
 # NGINX mountable directories for config and logs
 VOLUME ["/etc/nginx/sites-enabled", "/etc/nginx/certs", "/etc/nginx/conf.d", "/var/log/nginx"]
 
