@@ -11,8 +11,12 @@ RUN PACKAGES_TO_INSTALL="sudo git cron php7.0-dev composer php-xdebug php7.0-mbs
     apt-get install -y $PACKAGES_TO_INSTALL && \
     apt-get autoremove -y && \
     apt-get clean && \
-    apt-get autoclean
-    
+    apt-get autoclean && \
+    #添加ssh用户
+	useradd admin && \
+	echo 'root:123' | chpasswd && \
+	/etc/init.d/ssh restart
+
 RUN pecl install yaml-beta && \
     echo 'extension=yaml.so' > /etc/php/7.0/mods-available/yaml.ini && \
     ln -s /etc/php/7.0/mods-available/yaml.ini /etc/php/7.0/cli/conf.d/50-yaml.ini && \
@@ -21,7 +25,7 @@ RUN pecl install yaml-beta && \
 RUN echo 'extension=phalcon.so' > /etc/php/7.0/mods-available/phalcon.ini && \
     ln -s /etc/php/7.0/mods-available/phalcon.ini /etc/php/7.0/cli/conf.d/50-phalcon.ini && \
     ln -s /etc/php/7.0/mods-available/phalcon.ini /etc/php/7.0/fpm/conf.d/50-phalcon.ini
-
+    
 # configure NGINX as non-daemon
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
