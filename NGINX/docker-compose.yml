@@ -9,10 +9,10 @@ services:
         ports:
             - "16379:6379"
 
-    # SD框架阿里云内网 registry.cn-hangzhou.aliyuncs.com/peterpang/dev
+    # phalcon框架阿里云内网 registry-internal.cn-hangzhou.aliyuncs.com/peterpang/phalcon
     peter:
         container_name: peter
-        image: registry-internal.cn-hangzhou.aliyuncs.com/peterpang/dev
+        image: registry-internal.cn-hangzhou.aliyuncs.com/peterpang/phalcon
         links:
             - redis
         volumes:
@@ -23,7 +23,7 @@ services:
 
     ljj:
         container_name: ljj
-        image: registry-internal.cn-hangzhou.aliyuncs.com/peterpang/dev
+        image: registry-internal.cn-hangzhou.aliyuncs.com/peterpang/phalcon
         links:
             - redis
         volumes:
