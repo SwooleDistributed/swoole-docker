@@ -1,6 +1,6 @@
 # sd-swoole
 FROM php:7.1-cli
-MAINTAINER Jincheng Zhang 896369042@qq.com
+MAINTAINER peterpang 10846295@qq.com
 # 构建swoole环境，在这里安装了php,swoole,composer
 COPY sshd_config /etc/ssh/
 RUN apt-get update && apt-get install -y \
