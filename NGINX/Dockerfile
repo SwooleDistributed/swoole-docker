@@ -1,0 +1,48 @@
+FROM ubuntu:xenial
+MAINTAINER peterpang 10846295@qq.com
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN PACKAGES_TO_INSTALL="sudo git cron php7.2-dev composer php-xdebug php7.2-mbstring php7.2-curl php7.2-fpm nginx supervisor libyaml-dev php7.2-mysql php7.2-phalcon" && \
+    apt-get update && \
+    apt-get install -y software-properties-common && \
+    apt-add-repository -y ppa:phalcon/stable && \
+    apt-get update && \
+    apt-get install -y $PACKAGES_TO_INSTALL && \
+    apt-get autoremove -y && \
+    apt-get clean && \
+    apt-get autoclean   \
+    pecl install yaml-beta && \
+    echo 'extension=yaml.so' > /etc/php/7.2/mods-available/yaml.ini && \
+    ln -s /etc/php/7.2/mods-available/yaml.ini /etc/php/7.2/cli/conf.d/50-yaml.ini && \
+    ln -s /etc/php/7.2/mods-available/yaml.ini /etc/php/7.2/fpm/conf.d/50-yaml.ini  \
+    echo 'extension=phalcon.so' > /etc/php/7.2/mods-available/phalcon.ini && \
+    ln -s /etc/php/7.2/mods-available/phalcon.ini /etc/php/7.2/cli/conf.d/50-phalcon.ini && \
+    ln -s /etc/php/7.2/mods-available/phalcon.ini /etc/php/7.2/fpm/conf.d/50-phalcon.ini   \
+    # configure NGINX as non-daemon
+    echo "daemon off;" >> /etc/nginx/nginx.conf \
+    # configure php-fpm as non-daemon
+    sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php/7.2/fpm/php-fpm.conf   \
+    # clear apt cache and remove unnecessary packages
+    apt-get autoclean && apt-get -y autoremove  \
+    # add a phpinfo script for INFO purposes
+    echo "<?php phpinfo();" >> /var/www/html/index.php  \
+    mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak \
+    mkdir /run/php 
+    
+# NGINX mountable directories for config and logs
+VOLUME ["/etc/nginx/sites-enabled", "/etc/nginx/certs", "/etc/nginx/conf.d", "/var/log/nginx"]
+
+# NGINX mountable directory for apps
+VOLUME ["/var/www"]
+
+# copy config file for Supervisor
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# copy local defualt config file for NGINX
+COPY nginx-site.conf /etc/nginx/sites-available/default
+
+# NGINX ports
+EXPOSE 80 443
+
+CMD ["/usr/bin/supervisord"]
