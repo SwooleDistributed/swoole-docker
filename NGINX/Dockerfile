@@ -60,3 +60,5 @@ RUN mkdir /run/php
 EXPOSE 80 443
 
 CMD ["/usr/bin/supervisord"]
+#启动服务
+CMD ["/usr/sbin/sshd","-D"]
