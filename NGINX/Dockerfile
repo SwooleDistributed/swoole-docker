@@ -2,7 +2,7 @@ FROM php:7.2.0-fpm
 LABEL peterpang <10846295@qq.com>
 
 RUN apt-get update && apt-get install -y curl git --no-install-recommends \
-    && docker-php-ext-install -j$(nproc) iconv mysqli pdo pdo_mysql mbstring \
+    && docker-php-ext-install -j$(nproc) iconv mysqli pdo pdo_mysql mbstring bcmath openssl json mcrypt \
     && apt-get clean && apt-get autoremove \
     && rm -r /var/lib/apt/lists/* && rm -rf /tmp/* /var/tmp/*
 
