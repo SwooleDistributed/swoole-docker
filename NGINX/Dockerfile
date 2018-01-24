@@ -62,7 +62,7 @@ COPY nginx-site.conf /etc/nginx/sites-available/default
 RUN mkdir /run/php
 
 # NGINX ports
-PORT 80 443
+--expose 80 443
 
 CMD ["/usr/bin/supervisord"]
 #启动服务
