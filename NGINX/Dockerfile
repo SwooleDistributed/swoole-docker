@@ -1,10 +1,29 @@
 FROM php:7.2.0-fpm
 LABEL peterpang <10846295@qq.com>
+COPY sshd_config /etc/ssh/
 
-RUN apt-get update && apt-get install -y curl git --no-install-recommends \
-    && docker-php-ext-install -j$(nproc) iconv mysqli pdo pdo_mysql mbstring \
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    zlib1g-dev \
+	vim \
+	libssl-dev \
+	unzip \
+	wget \
+	git \
+	make \
+	openssh-server \
+	subversion \
+	supervisor \
+    --no-install-recommends \
+    && docker-php-ext-install -j$(nproc) iconv mysqli pdo pdo_mysql mbstring zip opcache bcmath \
     && apt-get clean && apt-get autoremove \
-    && rm -r /var/lib/apt/lists/* && rm -rf /tmp/* /var/tmp/*
+    && rm -r /var/lib/apt/lists/* && rm -rf /tmp/* /var/tmp/* \
+    #添加ssh用户
+	&& useradd admin \
+	&& echo 'root:123' | chpasswd \
+	&& /etc/init.d/ssh restart
+
 
 COPY ./php7-ini/20-phalcon.ini /usr/local/etc/php/conf.d/20-phalcon.ini
 COPY ./php7-ini/20-mongodb.ini /usr/local/etc/php/conf.d/20-mongodb.ini
@@ -15,3 +34,5 @@ WORKDIR /usr/share/nginx/html
 EXPOSE 80
 
 CMD ["php-fpm"]
+#启动服务
+CMD ["/usr/sbin/sshd","-D"]
