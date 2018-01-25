@@ -31,7 +31,7 @@ COPY ./php7-ext/phalcon-v3.3.0.so /usr/local/lib/php/extensions/no-debug-non-zts
 COPY ./php7-ext/mongodb-v1.3.4.so /usr/local/lib/php/extensions/no-debug-non-zts-20170718/mongodb-v1.3.4.so
 
 WORKDIR /usr/share/nginx/html
-EXPOSE 80
+#EXPOSE 80
 
 CMD ["php-fpm"]
 #启动服务
