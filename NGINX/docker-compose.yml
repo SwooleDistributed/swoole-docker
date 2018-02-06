@@ -4,9 +4,7 @@ services:
     peter:
         container_name: peter
         image: registry.cn-hangzhou.aliyuncs.com/peterpang/docker_nginx
-        links:
-            - mysql
-            - redis
+
         volumes:
             - /home/docker_user/peter:/var/www/html
         ports:
