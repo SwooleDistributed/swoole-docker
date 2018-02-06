@@ -1,38 +1,30 @@
-FROM php:7.2.0-fpm
-LABEL peterpang <10846295@qq.com>
+FROM alpine:3.6
+MAINTAINER peterpang 10846295@qq.com
+
 COPY sshd_config /etc/ssh/
-
-RUN apt-get update && apt-get install -y \
-    curl \
-    git \
-    zlib1g-dev \
-	vim \
-	libssl-dev \
-	unzip \
-	wget \
-	git \
-	make \
-	openssh-server \
-	subversion \
-	supervisor \
-    --no-install-recommends \
-    && docker-php-ext-install -j$(nproc) iconv mysqli pdo pdo_mysql mbstring zip opcache bcmath \
-    && apt-get clean && apt-get autoremove \
-    && rm -r /var/lib/apt/lists/* && rm -rf /tmp/* /var/tmp/* \
+# Install packages
+RUN apk --no-cache add php7 php7-fpm php7-mysqli php7-json php7-openssl php7-curl \
+    && php7-zlib php7-xml php7-phar php7-intl php7-dom php7-xmlreader php7-ctype \
+    && php7-mbstring php7-gd nginx supervisor curl \
     #添加ssh用户
-	&& useradd admin \
-	&& echo 'root:123' | chpasswd \
-	&& /etc/init.d/ssh restart
+    && useradd admin \
+    && echo 'root:123' | chpasswd \
+    && /etc/init.d/ssh restart
 
+# Configure nginx
+COPY config/nginx.conf /etc/nginx/nginx.conf
 
-COPY ./php7-ini/20-phalcon.ini /usr/local/etc/php/conf.d/20-phalcon.ini
-COPY ./php7-ini/20-mongodb.ini /usr/local/etc/php/conf.d/20-mongodb.ini
-COPY ./php7-ext/phalcon-v3.3.0.so /usr/local/lib/php/extensions/no-debug-non-zts-20170718/phalcon-v3.3.0.so
-COPY ./php7-ext/mongodb-v1.3.4.so /usr/local/lib/php/extensions/no-debug-non-zts-20170718/mongodb-v1.3.4.so
+# Configure PHP-FPM
+COPY config/fpm-pool.conf /etc/php7/php-fpm.d/zzz_custom.conf
+COPY config/php.ini /etc/php7/conf.d/zzz_custom.ini
 
-WORKDIR /usr/share/nginx/html
-#EXPOSE 80
+# Configure supervisord
+COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-CMD ["php-fpm"]
-#启动服务
-CMD ["/usr/sbin/sshd","-D"]
+# Add application
+RUN mkdir -p /var/www/html
+WORKDIR /var/www/html
+COPY src/ /var/www/html/
+
+EXPOSE 80 443
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
