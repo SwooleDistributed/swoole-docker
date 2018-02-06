@@ -58,8 +58,6 @@ RUN apt-get update && apt-get install -y \
 
 COPY ./config/* /usr/local/etc/php/conf.d/
 
-
-
 # Configure nginx
 COPY config/nginx.conf /etc/nginx/nginx.conf
 
