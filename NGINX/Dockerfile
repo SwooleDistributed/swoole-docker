@@ -1,5 +1,6 @@
 # sd-swoole
-FROM php:7.1-fpm
+FROM php:7.0.5-fpm
+
 MAINTAINER peterpang 10846295@qq.com
 # 构建swoole环境，在这里安装了php,swoole,composer
 COPY sshd_config /etc/ssh/
