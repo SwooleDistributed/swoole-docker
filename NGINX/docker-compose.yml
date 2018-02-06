@@ -1,28 +1,5 @@
 version: "2"
 services:
-    # MySQL 5.7: https://hub.docker.com/_/mysql/
-    mysql:
-        container_name: mysql
-        image: mysql:5.7
-        environment:
-            MYSQL_ROOT_PASSWORD: "ecube123"
-            MYSQL_USER: "root"
-            MYSQL_PASSWORD: "ecube123"
-            MYSQL_DATABASE: "one"
-        volumes:
-            - /home/docker/mysql:/var/lib/mysql
-        ports:
-            - "13306:3306"
-
-    # Redis 3.2.10: https://hub.docker.com/_/redis/
-    redis:
-        container_name: redis
-        image: redis:3.2.10
-        volumes:
-            - /home/docker/redis:/data
-        ports:
-            - "16379:6379"
-
     # SD框架阿里云内网 registry.cn-hangzhou.aliyuncs.com/peterpang/dev
     peter:
         container_name: peter
