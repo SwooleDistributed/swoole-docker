@@ -55,7 +55,5 @@ RUN apt-get update && apt-get install -y \
 	&& echo 'root:123456' | chpasswd \
 	&& /etc/init.d/ssh restart
 
-COPY ./config/* /usr/local/etc/php/conf.d/
-
 #启动服务
 CMD ["/usr/sbin/sshd","-D"]
