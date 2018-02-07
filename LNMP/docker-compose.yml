@@ -1,0 +1,72 @@
+version: '3'
+
+services:
+
+### Applications Code Container #############################
+
+#     web:
+#       image: debian:jessie
+#       volumes:
+#         - ./www:/var/www
+
+### PHP-FPM Container #######################################
+
+    php-fpm:
+      build:
+        context: ./php
+      volumes:
+        - /home/docker_user/peter/www/html:/var/www/html
+      expose:
+        - "9000"
+      depends_on:
+        - mysql
+
+### PHP-CLI Container #######################################
+
+    php-cli:
+      build:
+        context: ./php-cli
+      volumes:
+        - /home/docker_user/peter/www/html:/var/www/html
+      tty: true
+
+### Nginx Server Container ##################################
+
+    nginx:
+      build:
+        context: ./nginx
+      volumes:
+          - /home/docker_user/peter/www/html:/var/www/html
+      ports:
+          - "10181:80"
+          - "10281:443"
+      depends_on:
+          - php-fpm
+
+### MySQL Container #########################################
+
+    mysql:
+      image: mysql:5.7
+      volumes:
+        - mysql-data:/var/lib/mysql
+      ports:
+        - "3306:3306"
+      environment:
+        - MYSQL_ROOT_PASSWORD=123456
+
+### Volumes Setup ###########################################
+
+volumes:
+    mysql-data:
+
+
+# SD框架阿里云内网 registry.cn-hangzhou.aliyuncs.com/peterpang/dev
+    peter:
+        container_name: peter
+        image: registry.cn-hangzhou.aliyuncs.com/peterpang/docker_nginx
+
+        volumes:
+            - /home/docker_user/peter/www/html:/var/www/html
+        ports:
+            - "10181:80"
+            - "10122:22"
