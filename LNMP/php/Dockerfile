@@ -1,6 +1,7 @@
 FROM php:7.1-fpm
 
 ENV TZ=Asia/Shanghai
+COPY sshd_config /etc/ssh/
 
 RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
