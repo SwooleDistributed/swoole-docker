@@ -54,12 +54,6 @@ services:
       environment:
         - MYSQL_ROOT_PASSWORD=123456
 
-### Volumes Setup ###########################################
-
-volumes:
-    mysql-data:
-
-
 # SD框架阿里云内网 registry.cn-hangzhou.aliyuncs.com/peterpang/dev
     peter:
         container_name: peter
