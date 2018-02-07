@@ -29,3 +29,6 @@ RUN apt-get update && apt-get install -y \
     && /etc/init.d/ssh restart
 
 COPY ./php.ini /usr/local/etc/php/conf.d/php.ini
+
+#启动服务
+CMD ["/usr/sbin/sshd","-D"]
