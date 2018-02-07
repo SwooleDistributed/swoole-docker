@@ -16,9 +16,7 @@ services:
         context: ./php
       volumes:
         - /home/docker_user/peter/www/html:/var/www/html
-      ports:
-        - "10181:80"
-        - "10122:22"
+      expose:
         - "9000"
       depends_on:
         - mysql
