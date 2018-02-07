@@ -21,15 +21,6 @@ services:
       depends_on:
         - mysql
 
-### PHP-CLI Container #######################################
-
-    php-cli:
-      build:
-        context: ./php-cli
-      volumes:
-        - /home/docker_user/peter/www/html:/var/www/html
-      tty: true
-
 ### Nginx Server Container ##################################
 
     nginx:
