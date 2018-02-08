@@ -2,27 +2,15 @@ version: '2'
 
 services:
 
-### Applications Code Container #############################
-
-#     web:
-#       image: debian:jessie
-#       volumes:
-#         - ./www:/var/www
-
-### PHP-FPM Container #######################################
-
     php-fpm:
       build:
         context: ./php
       volumes:
         - /home/docker_user/peter/www/html:/var/www/html
-      ports:
+      expose:
         - "9000"
-        - "10122:22"
       depends_on:
         - mysql
-
-### Nginx Server Container ##################################
 
     nginx:
       build:
@@ -32,10 +20,9 @@ services:
       ports:
           - "10181:80"
           - "10281:443"
+          - "10122:22"
       depends_on:
           - php-fpm
-
-### MySQL Container #########################################
 
     mysql:
       image: mysql:5.7
