@@ -26,7 +26,11 @@ RUN apt update && \
     echo "mysql-server mysql-server/root_password password" | debconf-set-selections && \
     echo "mysql-server mysql-server/root_password_again password" | debconf-set-selections && \
     apt install -y mysql-server && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/*  \
+    #添加ssh用户
+	&& useradd admin \
+	&& echo 'root:123' | chpasswd \
+	&& /etc/init.d/ssh restart
 
 ## Configuration
 RUN sed -i 's/^listen\s*=.*$/listen = 127.0.0.1:9000/' /etc/php/7.1/fpm/pool.d/www.conf && \
@@ -42,4 +46,4 @@ VOLUME ["/var/www/", "/var/lib/mysql/"]
 
 EXPOSE 80
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh","/usr/sbin/sshd","-D"]
