@@ -4,7 +4,7 @@ LABEL Maintainer="peterpang <10846295@qq.com>" \
 
 COPY sshd_config /etc/ssh/
 # Install packages
-RUN apt-get update && apt-get install -y \
+RUN apk --no-cache add \
     zlib1g-dev \
 	vim \
 	libssl-dev \
