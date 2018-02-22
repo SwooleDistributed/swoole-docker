@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM php:7.1-cli
 LABEL Maintainer="peterpang <10846295@qq.com>" \
       Description="Lightweight container with Nginx 1.12 & PHP-FPM 7.1 based on Alpine Linux."
 
