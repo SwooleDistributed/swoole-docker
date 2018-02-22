@@ -1,7 +1,6 @@
 version: '2'
 
 services:
-
     php-fpm:
       build:
         context: ./php
