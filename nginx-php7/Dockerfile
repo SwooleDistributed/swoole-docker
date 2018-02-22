@@ -1,10 +1,10 @@
-FROM alpine:3.6
+FROM ubuntu:16.04
 LABEL Maintainer="peterpang <10846295@qq.com>" \
       Description="Lightweight container with Nginx 1.12 & PHP-FPM 7.1 based on Alpine Linux."
 
 COPY sshd_config /etc/ssh/
 # Install packages
-RUN apk --no-cache add \
+RUN apt-get update && apt-get install -y \
     zlib1g-dev \
 	vim \
 	libssl-dev \
