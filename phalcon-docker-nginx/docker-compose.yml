@@ -6,7 +6,7 @@ services:
   ports:
    - "9000:9000"
   volumes:
-   - ./html:/var/www/html
+   - /home/docker_user/peter:/var/www/html
 
  nginx:
   image: richarvey/nginx-php-fpm
@@ -15,4 +15,4 @@ services:
   ports:
    - "8080:80"
   volumes:
-   - ./html:/var/www/html
+   - /home/docker_user/peter:/var/www/html
