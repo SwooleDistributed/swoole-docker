@@ -1,6 +1,6 @@
 # sd-swoole
 FROM php:7.1-cli
-MAINTAINER Jincheng Zhang 896369042@qq.com
+MAINTAINER peterpang 10846295@qq.com 
 # 构建swoole环境，在这里安装了php,swoole,composer
 COPY sshd_config /etc/ssh/
 RUN apt-get update && apt-get install -y \
@@ -15,17 +15,17 @@ RUN apt-get update && apt-get install -y \
 	subversion \
 	supervisor \
 	--no-install-recommends \
-	&& docker-php-ext-install zip opcache bcmath pdo_mysql \
+	&& docker-php-ext-install zip opcache bcmath pdo_mysql mysqli \
 	&& cd /home && rm -rf temp && mkdir temp && cd temp \
-	&& wget https://github.com/swoole/swoole-src/archive/v1.9.19.tar.gz \
+	&& wget https://github.com/swoole/swoole-src/archive/v1.10.3.tar.gz \
 	https://github.com/redis/hiredis/archive/v0.13.3.tar.gz \
 	https://github.com/phpredis/phpredis/archive/3.1.3.tar.gz \
 	&& tar -xzvf 3.1.3.tar.gz \
 	&& tar -xzvf v0.13.3.tar.gz \
-	&& tar -xzvf v1.9.19.tar.gz \
+	&& tar -xzvf v1.10.3.tar.gz \
 	&& cd /home/temp/hiredis-0.13.3 \
 	&& make -j && make install && ldconfig \
-	&& cd /home/temp/swoole-src-1.9.19 \
+	&& cd /home/temp/swoole-src-1.10.3 \
 	&& phpize && ./configure --enable-async-redis --enable-openssl && make \
 	&& make install \
 	&& pecl install inotify \
@@ -50,9 +50,9 @@ RUN apt-get update && apt-get install -y \
 	&& apt-get autoclean \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/* \
-#添加ssh用户
+    #添加ssh用户
 	&& useradd admin \
-	&& echo 'root:123' | chpasswd \
+	&& echo 'root:123456' | chpasswd \
 	&& /etc/init.d/ssh restart
 
 COPY ./config/* /usr/local/etc/php/conf.d/

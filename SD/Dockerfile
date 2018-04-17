@@ -1,6 +1,6 @@
 # sd-swoole
-FROM registry.cn-hangzhou.aliyuncs.com/youwoxing/swoole
-MAINTAINER Jincheng Zhang 896369042@qq.com
+FROM registry.cn-hangzhou.aliyuncs.com/youwoxing/sd
+MAINTAINER peterpang 10846295@qq.com
 RUN mkdir /apps
 COPY composer.json /apps/composer.json
 # 安装SD框架

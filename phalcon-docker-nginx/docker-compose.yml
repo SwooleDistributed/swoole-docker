@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+ phalcon:
+  image: 27tech/phalcon
+  ports:
+   - "9000:9000"
+  volumes:
+   - /home/docker_user/peter:/var/www/html
+
+ nginx:
+  image: richarvey/nginx-php-fpm
+  links:
+    - phalcon:php
+  ports:
+   - "8080:80"
+  volumes:
+   - /home/docker_user/peter:/var/www/html
